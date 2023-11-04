@@ -70,7 +70,8 @@ def train(args, train_dataloader, model, criterion, optimizer, epoch, tokenizer,
         logits = model(question_inputs, visual_features, answer_inputs)[0]
         
         # only consider loss on reference summary just like seq2seq models
-        idx = args.question_len + visual_len
+        idx = args.question_len + 1
+
         shift_logits = logits[..., idx:-1, :].contiguous()
         shift_labels = answer_inputs['input_ids'][..., 1:].contiguous() # 1 because answer has '<|sep|>' in front
         shift_labels = shift_labels.to(device)
@@ -126,7 +127,7 @@ def validate(args, val_loader, model, criterion, epoch, tokenizer, device, save_
 
             
             # only consider loss on reference summary just like seq2seq models
-            idx = args.question_len + visual_len
+            idx = args.question_len + 1
             shift_logits = logits[..., idx:-1, :].contiguous()
             shift_labels = answer_inputs['input_ids'][..., 1:].contiguous() # 1 because answer has '<|sep|>' in front
             
@@ -242,7 +243,6 @@ if __name__ == '__main__':
         if args.model_ver == 'efvlegpt2rs18' or args.model_ver == "efvlegpt2Swin" or args.model_ver == 'efvlegpt2ViT':
             
             train_dataset = EndoVis18VQAGPTSentence(train_seq, folder_head, folder_tail, model_ver=args.model_ver)
-            print('Mobarak', len(train_dataset))
             train_dataloader = DataLoader(dataset=train_dataset, batch_size= args.batch_size, shuffle=True, num_workers=8)
             val_dataset = EndoVis18VQAGPTSentence(val_seq, folder_head, folder_tail, model_ver=args.model_ver)
             val_dataloader = DataLoader(dataset=val_dataset, batch_size= args.batch_size, shuffle=False, num_workers=8)        
