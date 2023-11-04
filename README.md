@@ -9,5 +9,5 @@ python train_SGPT_V2_Sentence.py \
 --vis_pos_emb='zeroes'\
 --batch_size=40
 
-##Dataset
+## Dataset
 [EndoVis18-VQA](https://drive.google.com/file/d/1K5YnSPMPvn2x1gtRAw2ZfxIqoIo2DX3I)
