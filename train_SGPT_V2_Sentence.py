@@ -235,7 +235,7 @@ if __name__ == '__main__':
         val_seq = [1, 5, 16]
         # train_seq = [1, 2, 3, 5, 6, 7, 9, 10, 14, 15, 16]
         # val_seq = [4, 11, 12]
-        folder_head = 'dataset/EndoVis-18-VQA/seq_'
+        folder_head = 'datasets/EndoVis-18-VQA/seq_'
         folder_tail = '/vqa/Sentence/*.txt'
         
         # dataloader
