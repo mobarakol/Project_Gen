@@ -45,13 +45,14 @@ class EndoVis18VQAGPTSentence(Dataset):
         
         filenames = []
         for curr_seq in seq: filenames = filenames + glob.glob(folder_head + str(curr_seq) + folder_tail)
+
         self.vqas = []
         for file in filenames:
             file_data = open(file, "r")
             lines = [line.strip("\n") for line in file_data if line != "\n"]
             file_data.close()
             for line in lines: 
-                q_type, q_s, an_s = line.split('|')
+                q_s, an_s = line.split('|')
                 q_s = q_s.split('&')
                 an_s = an_s.split(('&'))
                 for i in range(len(q_s)):
@@ -72,8 +73,8 @@ class EndoVis18VQAGPTSentence(Dataset):
     def __getitem__(self, idx):        
         loc = self.vqas[idx][0].split('/')
         
-        # img
-        img_loc = os.path.join(loc[0],loc[1],loc[2], loc[3], 'left_frames',loc[-1].split('_')[0]+'.png')
+        # img loc[3],
+        img_loc = os.path.join(loc[0],loc[1],loc[2], 'left_frames',loc[-1].split('_')[0]+'.png')
         if self.transform: 
             img = Image.open(img_loc)
             img = self.transform(img)

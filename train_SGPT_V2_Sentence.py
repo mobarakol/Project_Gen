@@ -235,13 +235,14 @@ if __name__ == '__main__':
         val_seq = [1, 5, 16]
         # train_seq = [1, 2, 3, 5, 6, 7, 9, 10, 14, 15, 16]
         # val_seq = [4, 11, 12]
-        folder_head = '../dataset/EndoVis-18-VQA/seq_'
-        folder_tail = '/vqa2/Sentence/*.txt'
+        folder_head = 'dataset/EndoVis-18-VQA/seq_'
+        folder_tail = '/vqa/Sentence/*.txt'
         
         # dataloader
         if args.model_ver == 'efvlegpt2rs18' or args.model_ver == "efvlegpt2Swin" or args.model_ver == 'efvlegpt2ViT':
             
             train_dataset = EndoVis18VQAGPTSentence(train_seq, folder_head, folder_tail, model_ver=args.model_ver)
+            print('Mobarak', len(train_dataset))
             train_dataloader = DataLoader(dataset=train_dataset, batch_size= args.batch_size, shuffle=True, num_workers=8)
             val_dataset = EndoVis18VQAGPTSentence(val_seq, folder_head, folder_tail, model_ver=args.model_ver)
             val_dataloader = DataLoader(dataset=val_dataset, batch_size= args.batch_size, shuffle=False, num_workers=8)        
@@ -312,7 +313,7 @@ if __name__ == '__main__':
         # elif args.model_ver == 'efvlegpt2ViT':
         #     model = EFVLEGPT2ViTClassification(num_class = args.num_class, model_subver = args.model_subver, vis_pos_emb = args.vis_pos_emb)
         
-        print(model)
+        # print(model)
         # optimizer
         optimizer = optim.Adam(model.parameters(), lr=args.lr)
 
